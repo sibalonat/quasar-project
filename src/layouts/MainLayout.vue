@@ -66,7 +66,6 @@ onMounted(() => {
 
 <template>
   <q-layout view="lHh LpR fFf">
-
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
