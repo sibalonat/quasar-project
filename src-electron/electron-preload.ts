@@ -43,9 +43,11 @@ contextBridge.exposeInMainWorld('notification', {
   // }
   show: (title: string, body: string) => {
     console.log('notification sent:', title, body);
-    ipcRenderer.invoke('notification:show', { title, body }).catch((error) => {
-      console.error('Failed to send notification:', error);
-    });
+    ipcRenderer.invoke('notification:show', { title, body })
+      .then(result => console.log(result))
+      .catch((error) => {
+        console.error('Failed to send notification:', error);
+      });
 
 
   }

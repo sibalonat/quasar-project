@@ -73,8 +73,10 @@ app.on('activate', () => {
 //   //   // mainWindow.webContents.send('notification', title, body);
 //   // }
 // }
-function sendNotification(data: { title: string, body: string }) {
-  const notification = new Notification({ title: data.title, body: data.body });
+function sendNotification(event: Electron.IpcMainInvokeEvent, title: string, body: string) {
+  console.log('notification sent:', title, body);
+
+  const notification = new Notification({ title, body });
   notification.show()
   // if (mainWindow) {
   //   // mainWindow.webContents.send('notification', { title, body });
@@ -82,8 +84,8 @@ function sendNotification(data: { title: string, body: string }) {
   // }
 }
 
-ipcMain.handle('notification:show', (event, data) => {
-  sendNotification(data);
-  return true;
+ipcMain.handle('notification:show', (event, title, body) => {
+  return sendNotification(event, title, body);
+  // return true;
 });
 
