@@ -27,3 +27,23 @@
  *   }
  * }
  */
+
+
+import { contextBridge } from 'electron'
+// import { ipcRenderer } from 'electron'
+
+contextBridge.exposeInMainWorld('notification', {
+  // ipcRenderer: ipcRenderer
+  // send: (title: string, body: string) => {
+  //   // ipcRenderer.send('notification', title, body)
+  //   console.log('notification sent:', title, body)
+  // }
+  // send: (title: string, body: string) => {
+  //   console.log('notification sent:', title, body)
+  // }
+  show: (title: string, body: string) => {
+    console.log('notification sent:', title, body);
+
+
+  }
+})

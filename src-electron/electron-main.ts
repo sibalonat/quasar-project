@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain, Notification } from 'electron';
 import path from 'path';
 import os from 'os';
 import { fileURLToPath } from 'url'
@@ -63,3 +63,18 @@ app.on('activate', () => {
     void createWindow();
   }
 });
+
+// Send notifications.
+function sendNotification(event: Electron.IpcMainInvokeEvent, title: string, body: string) {
+  const notification = new Notification({ title, body });
+  notification.show()
+  // if (mainWindow) {
+  //   // mainWindow.webContents.send('notification', { title, body });
+  //   // mainWindow.webContents.send('notification', title, body);
+  // }
+}
+
+ipcMain.handle('notification:show', (event, title, body) => sendNotification(event, title, body));
+// ipcMain.handle('notification:show', (event, title: string, body: string) => {
+//   sendNotification(title, body);
+// });

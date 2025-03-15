@@ -1,20 +1,9 @@
-<template>
-  <q-page class="row items-center justify-evenly">
-    <!-- <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component> -->
-    <!-- <div class="grid grid-cols-12 gap-4">
-      <div v-for="i in 12" :key="i">
-        {{ i }}
-      </div>
-    </div> -->
-  </q-page>
-</template>
-
 <script setup lang="ts">
+import { title } from 'process';
+
+interface ExtendedWindow extends Window {
+  notification: unknown;
+}
 // import { ref } from 'vue';
 // import type { Todo, Meta } from 'components/models';
 // import ExampleComponent from 'components/ExampleComponent.vue';
@@ -45,4 +34,32 @@
 // const meta = ref<Meta>({
 //   totalCount: 1200
 // });
+// = {
+//   show: (msg: string) => {
+//     console.log(msg);
+//   }
+// };
+
+
+console.log((window as unknown as ExtendedWindow).notification);
+((window as unknown as ExtendedWindow).notification as { show: (msg: { title: string, message: string }) => void }).show({
+  title: 'Hello',
+  message: 'World'
+})
+
 </script>
+<template>
+  <q-page class="row items-center justify-evenly">
+    <!-- <example-component
+      title="Example component"
+      active
+      :todos="todos"
+      :meta="meta"
+    ></example-component> -->
+    <!-- <div class="grid grid-cols-12 gap-4">
+      <div v-for="i in 12" :key="i">
+        {{ i }}
+      </div>
+    </div> -->
+  </q-page>
+</template>
