@@ -65,8 +65,16 @@ app.on('activate', () => {
 });
 
 // Send notifications.
-function sendNotification(event: Electron.IpcMainInvokeEvent, title: string, body: string) {
-  const notification = new Notification({ title, body });
+// function sendNotification(event: Electron.IpcMainInvokeEvent, title: string, body: string) {
+//   const notification = new Notification({ title, body });
+//   notification.show()
+//   // if (mainWindow) {
+//   //   // mainWindow.webContents.send('notification', { title, body });
+//   //   // mainWindow.webContents.send('notification', title, body);
+//   // }
+// }
+function sendNotification(data: { title: string, body: string }) {
+  const notification = new Notification({ title: data.title, body: data.body });
   notification.show()
   // if (mainWindow) {
   //   // mainWindow.webContents.send('notification', { title, body });
@@ -74,7 +82,8 @@ function sendNotification(event: Electron.IpcMainInvokeEvent, title: string, bod
   // }
 }
 
-ipcMain.handle('notification:show', (event, title, body) => sendNotification(event, title, body));
-// ipcMain.handle('notification:show', (event, title: string, body: string) => {
-//   sendNotification(title, body);
-// });
+ipcMain.handle('notification:show', (event, data) => {
+  sendNotification(data);
+  return true;
+});
+

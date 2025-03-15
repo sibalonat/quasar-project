@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { title } from 'process';
 
 interface ExtendedWindow extends Window {
   notification: unknown;
@@ -40,12 +39,12 @@ interface ExtendedWindow extends Window {
 //   }
 // };
 
-
-console.log((window as unknown as ExtendedWindow).notification);
-((window as unknown as ExtendedWindow).notification as { show: (msg: { title: string, message: string }) => void }).show({
-  title: 'Hello',
-  message: 'World'
-})
+(
+  (window as unknown as ExtendedWindow).notification as
+  {
+    show: (title: string, message: string) => void
+  }
+).show('Hello', 'World');
 
 </script>
 <template>

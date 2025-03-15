@@ -29,7 +29,7 @@
  */
 
 
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 // import { ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('notification', {
@@ -43,6 +43,9 @@ contextBridge.exposeInMainWorld('notification', {
   // }
   show: (title: string, body: string) => {
     console.log('notification sent:', title, body);
+    ipcRenderer.invoke('notification:show', { title, body }).catch((error) => {
+      console.error('Failed to send notification:', error);
+    });
 
 
   }
