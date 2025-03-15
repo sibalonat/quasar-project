@@ -16,8 +16,8 @@ async function createWindow() {
    */
   mainWindow = new BrowserWindow({
     icon: path.resolve(currentDir, 'icons/icon.png'), // tray icon
-    width: 1000,
-    height: 600,
+    width: 1900,
+    height: 1000,
     useContentSize: true,
     webPreferences: {
       contextIsolation: true,
@@ -73,6 +73,7 @@ app.on('activate', () => {
 //   //   // mainWindow.webContents.send('notification', title, body);
 //   // }
 // }
+// Send notifications.
 function sendNotification(_event: Electron.IpcMainInvokeEvent, title: string, body: string) {
   console.log('notification sent:', title, body);
 
@@ -84,8 +85,5 @@ function sendNotification(_event: Electron.IpcMainInvokeEvent, title: string, bo
   // }
 }
 
-ipcMain.handle('notification:show', (event, title, body) => {
-  return sendNotification(event, title, body);
-  // return true;
-});
+ipcMain.handle('notification:show', (event, title, body) => sendNotification(event, title, body));
 
