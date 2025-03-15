@@ -73,7 +73,7 @@ app.on('activate', () => {
 //   //   // mainWindow.webContents.send('notification', title, body);
 //   // }
 // }
-function sendNotification(event: Electron.IpcMainInvokeEvent, title: string, body: string) {
+function sendNotification(_event: Electron.IpcMainInvokeEvent, title: string, body: string) {
   console.log('notification sent:', title, body);
 
   const notification = new Notification({ title, body });
