@@ -1,0 +1,37 @@
+Running Electron apps with notifications in WSL2 can be tricky due to the way WSL2 handles GUI applications and system services. Here are some additional steps you can take to resolve the issue:
+
+1. **Install an X Server on Windows**:
+   Since WSL2 does not natively support GUI applications, you need an X Server on Windows to display GUI elements. You can use VcXsrv or Xming. After installing, start the X Server.
+
+2. **Configure WSL2 to Use the X Server**:
+   Set the `DISPLAY` environment variable in WSL2 to point to the X Server. You can add the following line to your `.bashrc` or `.zshrc` file:
+   ```bash
+   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
+   ```
+   Then, source the file to apply the changes:
+   ```bash
+   source ~/.bashrc
+   ```
+
+3. **Install `libnotify-bin`**:
+   Ensure that `libnotify-bin` is installed in your WSL2 environment:
+   ```bash
+   sudo apt-get install libnotify-bin
+   ```
+
+4. **Use a Different Notification Daemon**:
+   Sometimes, `notification-daemon` might not work well with WSL2. You can try using `xfce4-notifyd` instead:
+   ```bash
+   sudo apt-get install xfce4-notifyd
+   ```
+
+5. **Restart WSL2**:
+   After making these changes, restart your WSL2 instance:
+   ```bash
+   wsl --shutdown
+   ```
+
+6. **Run Your Electron App**:
+   Start your Electron app again and check if the notifications are working.
+
+By following these steps, you should be able to get notifications working in your Electron app running in WSL2. If you continue to encounter issues, please let me know, and we can further troubleshoot the problem together.

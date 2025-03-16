@@ -85,5 +85,10 @@ function sendNotification(_event: Electron.IpcMainInvokeEvent, title: string, bo
   // }
 }
 
-ipcMain.handle('notification:show', (event, title, body) => sendNotification(event, title, body));
+// ipcMain.handle('notification:show', (event, title, body) => sendNotification(event, title, body));
 
+
+ipcMain.handle('notification:show', (event, { title, body }) => {
+  console.log('IPC received:', title, body);
+  sendNotification(event, title, body);
+});
