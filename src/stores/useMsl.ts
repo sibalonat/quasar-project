@@ -1,3 +1,4 @@
+import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 
 // Define the interface outside the store
@@ -14,6 +15,9 @@ export interface UserInfo {
 export const useMsl = defineStore('login', () => {
   const state = {
     isLogin: false,
+    logginIn: false,
+    loggedIn: useLocalStorage('useMsl.loggedIn', false),
+    loggedOut: false,
     userInfo: {
       id: '',
       name: '',
@@ -28,7 +32,10 @@ export const useMsl = defineStore('login', () => {
 
   const actions = {
     login(userInfo: UserInfo) {
+      state.logginIn = true;
       state.isLogin = true;
+      state.logginIn = false;
+      state.loggedIn.value = true;
       state.userInfo = userInfo;
     },
     logout() {
